@@ -36,7 +36,6 @@ pipeline {
 			}
 		}
 	} 
-	
 	post {
 		always {
 			echo 'Im so awesome. I run all the time haha!!!'
