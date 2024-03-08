@@ -14,10 +14,12 @@
 
 // Declarative pipeline
 pipeline {
-	agent any
+	//agent any
+	agent { docker { image 'maven:3.6.3' } }
 	stages {
 		stage ('Build') {
 			steps {
+				sh 'mvn --version'
 				echo "Build"
 				
 			}
@@ -36,7 +38,8 @@ pipeline {
 			}
 		}
 	} 
-	post {
+	post { //[always, changed, fixed, regression, aborted,
+	       // success, unsuccessful, unstable, failure, notBuilt, cleanup]
 		always {
 			echo 'Im so awesome. I run all the time haha!!!'
 		}
