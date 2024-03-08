@@ -40,7 +40,7 @@ pipeline {
 		always {
 			echo 'Im so awesome. I run all the time haha!!!'
 		}
-		sucess {
+		success {
 			echo 'Im so awesome. I when you are sucessful!!!'
 		}
 		failure {
