@@ -57,6 +57,34 @@ pipeline {
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
+
+		stage ('Package') {
+			sh "mvn package -DskipTests"
+
+		}
+		stage('Build Docker Image'){
+			steps {
+				//docker build -t prncedrice/currency-exchange-devops:$env.BUILD_TAG
+				script {
+					dockerImage = docker.build("prncedrice/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+
+			}
+
+		}
+		stage('Push Docker Image'){
+			steps {
+				script {
+					docker.withRegistry('', 'dockerHub') {
+						dockerImage.push();
+						dockerImage.push('latest');
+					}	
+				}
+
+				
+			}
+
+		}
 	} 
 	post { //[always, changed, fixed, regression, aborted,
 	       // success, unsuccessful, unstable, failure, notBuilt, cleanup]
